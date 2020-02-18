@@ -19,6 +19,8 @@ keypoints:
 We can do 2 simple plots to summarise your detections. We can make a abacus plot
 
 ~~~
+library(raster)
+
 abacus_plot(dets, location_col = 'station')
 
 Canada <- getData('GADM', country="CAN", level=1)
