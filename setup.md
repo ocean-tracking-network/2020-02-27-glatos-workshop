@@ -36,6 +36,15 @@ install_url("https://gitlab.oceantrack.org/GreatLakes/glatos/repository/master/a
 install.packages("here")
 ```
 
+```r
+# Setup for Vtrack crosswalk
+
+library(remotes)
+install_url("https://ocean-tracking-network.github.io/ideasotn-glatos-intro/glatos_0.4.0.1.tar.gz",
+            build_opts = c("--no-resave-data", "--no-manual"))  
+
+```
+
 Once the packages are installed, change your working directory in RStudio to `acoustic-workshop` using the files menu, or the `setwd('~/Desktop/acoustic-workshop')`
 
 
