@@ -1,0 +1,71 @@
+I"O<h2 id="requirements">Requirements</h2>
+
+<h3 id="download-the-data-folder">Download the data folder</h3>
+<p>Create a folder on your desktop called <code class="highlighter-rouge">acoustic-workshop</code>. Download the 
+<a href="https://github.com/ocean-tracking-network/jb-acoustic-telemetry/releases">data folder zip</a>, 
+extract it to a folder on your desktop called <code class="highlighter-rouge">acoustic-workshop</code>. You should now have a folder 
+called <code class="highlighter-rouge">data</code> inside of the <code class="highlighter-rouge">acoustic-workshop</code> folder.</p>
+
+<h3 id="r-version-36x-or-newer-and-rstudio">R version: 3.6.x or newer and RStudio</h3>
+
+<p>Open RStudio and run this install script. It’s best to run it line by line instead of all at once in case there are errors. 
+<b>Note:</b> When running through the installs, you may encounter a prompt asking you to upgrade dependent packages. Choosing Option <code class="highlighter-rouge">3: None</code>, works in most situations and will prevent upgrades of packages you weren’t explicitly looking to upgrade.</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"devtools"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Tidyverse (data cleaning and arrangement)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'tidyverse'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Concise way to manipulate large datasets</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'data.table'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Geospatial Data Manipulation and Vis Packages</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'geosphere'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rgdal'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'raster'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'sf'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'sp'</span><span class="p">,</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'ncdf4'</span><span class="p">,</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Mapping spatial data</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'mapdata'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'maptools'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'leaflet'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'mapview'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'ggmap'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rnaturalearth'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'plotly'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Animating spatial data</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'gganimate'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'gifski'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Network analysis</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'igraph'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'leaflet.minicharts'</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Other misscelaneous packages to help</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'viridis'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'lunar'</span><span class="p">)</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'httr'</span><span class="p">,</span><span class="w"> </span><span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># XTractomatic - match locations in time and space w/ model data via ERDDAP</span><span class="w">
+</span><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"rmendels/xtractomatic"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># VTrack - Tools for Telemetry Analysis</span><span class="w">
+</span><span class="n">devtools</span><span class="o">::</span><span class="n">install_github</span><span class="p">(</span><span class="s2">"rossdwyer/VTrack"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># GLATOS - acoustic telemetry package that does filtering, vis, array simulation, etc.</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s1">'remotes'</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">remotes</span><span class="p">)</span><span class="w">
+</span><span class="n">install_url</span><span class="p">(</span><span class="s2">"https://gitlab.oceantrack.org/GreatLakes/glatos/repository/master/archive.zip"</span><span class="p">,</span><span class="w">
+            </span><span class="n">build_opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"--no-resave-data"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--no-manual"</span><span class="p">))</span><span class="w">  
+
+</span><span class="c1"># Sensible Working Directory Manager</span><span class="w">
+</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"here"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Once the packages are installed, change your working directory in RStudio to <code class="highlighter-rouge">acoustic-workshop</code> using the files menu, or the <code class="highlighter-rouge">setwd('~/Desktop/acoustic-workshop')</code></p>
+
+:ET

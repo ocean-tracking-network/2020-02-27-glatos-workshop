@@ -1,0 +1,50 @@
+I"a<h2 id="glossary">Glossary</h2>
+
+<dl>
+  <dt id="abacus-plot">abacus plot</dt>
+  <dd>A dot-plot, often with time as the X axis, station as the Y axis, and individual ID as the color-code, popular in telemetry studies to show patterns of animal/spatial use over time.</dd>
+  <dt id="acoustic-telemetry">acoustic telemetry</dt>
+  <dd>The practice of affixing animals with uniquely-coded acoustic pingers and deploying listening stations to identify and locate them over time.</dd>
+  <dt id="att">ATT</dt>
+  <dd>A set of metadata formats implemented as an object in R. Devised by Vinay Udyawer of AIMS for use in the VTrack analysis package, standardizing the reporting of listening device deployment and recovery, tagging efforts, and detection events into one uniform data format.</dd>
+  <dt id="brownian-bridges">Brownian bridges</dt>
+  <dd>A conditional probability distribution that pins the process at both origin and a second time (t), a paradigm that is very useful for estimating path probability between two known events (i.e.: the location of an animal at two points in time and space).</dd>
+  <dt id="coacenters-of-activity">COA/Centers of Activity</dt>
+  <dd>An estimate of relative spatial activity given input data about animal positions in time. Based on technique described in: Simpfendorfer, C. A., M. R. Heupel, and R. E. Hueter. 2002. Estimation of short-term centers of activity from an array of omnidirectional hydrophones and its use in studying animal movements. Canadian Journal of Fisheries and Aquatic Sciences 59:23-32.</dd>
+  <dt id="data-cleaning">data cleaning</dt>
+  <dd>The process of removing irregularities in formatting, errors, and typos from data to ensure uniform operation in analysis and visualization.</dd>
+  <dt id="dplyr">dplyr</dt>
+  <dd>An R package focused on manipulating, subsetting, and summarising data frames (square matrices of data). Very useful for working with our tabular datasets. Part of the ‘Tidyverse’ family of R packages.</dd>
+  <dt id="fishid">FishID</dt>
+  <dd>A unique identifier for an individual animal observed at a location and time, regardless of the method of location. Often synonymous with catalognumber and animalID.</dd>
+  <dt id="fork-length">fork length</dt>
+  <dd>A common measurement for fish length, the length from nose to tail fork.</dd>
+  <dt id="glatos">glatos</dt>
+  <dd>A package maintained by the telemetry network of the same name to ingest, standardize, and operate on acoustic telemetry datasets.</dd>
+  <dt id="lubridate">Lubridate</dt>
+  <dd>Date manipulator package. Part of the ‘Tidyverse’ family of R packages.</dd>
+  <dt id="mapbox">MapBox</dt>
+  <dd>A geospatial visualization library, an open source mapping platform for custom-designed maps.</dd>
+  <dt id="package">package</dt>
+  <dd>In R, a package is a collection of R functions, data and compiled code. The location where the packages are stored is called the library. If there is a particular functionality that you require, you can download the package from the appropriate site and it will be stored in your library.</dd>
+  <dt id="ping">ping</dt>
+  <dd>A series of transmissions made by an acoustic tag for the purposes of relaying its unique code to a listening instrument.</dd>
+  <dt id="posix">POSIX</dt>
+  <dd>A set of IEEE standards that are meant to guarantee interoperability. In most common R parlance, it’s a shorthand for the functions that standardize the format for a date and time.</dd>
+  <dt id="r">R</dt>
+  <dd>A statistical programming language.</dd>
+  <dt id="residence-index">residence index</dt>
+  <dd>Any of a few ratios that can be calculated to determine the relative spatial use of an animal across an observatory of listening devices.</dd>
+  <dt id="station">station</dt>
+  <dd>A geographical location where listening equipment is deployed and recovered regularly.</dd>
+  <dt id="stringr">stringr</dt>
+  <dd>Character string manipulator package. Part of the ‘Tidyverse’ family of R packages.</dd>
+  <dt id="tagging-date">tagging date</dt>
+  <dd>The date an animal was affixed with an electronic tag (acoustic or otherwise).</dd>
+  <dt id="time-series">Time series</dt>
+  <dd>A dataset that takes measurements regularly over a period of time.</dd>
+  <dt id="tx-receivers">Tx receivers</dt>
+  <dd>Listening devices that also transmit their own coded pings, for the purposes of synchronizing clocks or for being heard by mobile listening stations.</dd>
+</dl>
+
+:ET

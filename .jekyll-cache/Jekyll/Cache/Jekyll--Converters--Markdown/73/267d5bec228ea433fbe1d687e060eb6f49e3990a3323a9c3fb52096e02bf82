@@ -1,0 +1,68 @@
+I"�)<h2 id="glatos">GLATOS</h2>
+<p>There’s an ongoing effort to combine the work done by many researchers worldwide on the creation of these and other analysis and visualization tools so that work is not duplicated, and so that researchers don’t have to start from scratch when implementing analysis techniques.</p>
+
+<p>The Great Lakes Acoustic Telemetry Observing System group has gathered a few of their more programming-minded researchers and authored an R package, and invited OTN and some technical people at Innovasea (Vemco) to help them maintain and extend this package to ensure that it’s useful for telemeters all over the world. There are a few very common methods of looking at acoustic detection data codified in glatos, and it serves as a great jumping off point for the design of new methods of analysis and visualization. The Pincock calculation above exists as a prebuilt function in the glatos toolbox, and there are a few others we’ll peek at now to help us with the visualization of these datasets.</p>
+
+<p>The notebook concept is a bit new to the glatos package, so be aware that its functions save most of their output to files. Those files will be in your project folder.</p>
+
+<h2 id="false-detection-filtering-using-the-pincock-algorithm">False Detection Filtering using the Pincock algorithm.</h2>
+
+<p>Doug Pincock defined a temporal threshhold algorithm to determine whether detections in a set of detections from a station could be considered real (<a href="https://www.vemco.com/pdf/false_detections.pdf" title="Link to Pincock Paper">Source</a>). The thrust of the filter is that a single detection at a station could very well be false, and it would require multiple detections of a tag by a receiver within a certain time frame to confirm that tag actually existed and was pinging at that station, and its ID was not the result of a collision event between two other tags.</p>
+
+<p>Tag collision resulting in no detection:</p>
+
+<p>Tag collision resulting in false detection:
+(figs from False Detections: What They Are and How to Remove Them from Detection Data, Pincock 2012)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">glatos</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dets_file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">system.file</span><span class="p">(</span><span class="s2">"extdata"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue_shark_detections.csv"</span><span class="p">,</span><span class="w">
+                        </span><span class="n">package</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"glatos"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dets</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_otn_detections</span><span class="p">(</span><span class="n">dets_file</span><span class="p">)</span><span class="w">
+</span><span class="n">dets</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">min_lag</span><span class="p">(</span><span class="n">dets</span><span class="p">)</span><span class="w">
+</span><span class="n">dets</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">false_detections</span><span class="p">(</span><span class="n">dets</span><span class="p">,</span><span class="w"> </span><span class="n">tf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3600</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The result of false_detections() adds a passed_filter column to the table. We can use this column to get only the detections that passed the filter.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+
+</span><span class="n">dets_f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dets</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">passed_filter</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="summarising-detections">Summarising Detections</h2>
+
+<p>We can use the glatos function <code class="highlighter-rouge">summarize_detections</code> to summarise where each animal was seen. We can use <code class="highlighter-rouge">detection_events</code> to group the detections in the events and make a summary from that. (An event is when an animal is detected at the same station multiple times within a time period, without being detected on another station)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">det_summary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">summarize_detections</span><span class="p">(</span><span class="n">dets</span><span class="p">,</span><span class="w"> </span><span class="n">location_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'station'</span><span class="p">)</span><span class="w">
+
+</span><span class="n">events</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">detection_events</span><span class="p">(</span><span class="n">dets_f</span><span class="p">,</span><span class="w"> </span><span class="n">location_col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'station'</span><span class="p">)</span><span class="w">
+
+</span><span class="n">event_summary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">animal_id</span><span class="p">,</span><span class="w"> </span><span class="n">location</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">summarise</span><span class="p">(</span><span class="w">
+    </span><span class="n">number_of_events</span><span class="o">=</span><span class="n">n_distinct</span><span class="p">(</span><span class="n">first_detection</span><span class="p">),</span><span class="w">
+    </span><span class="n">total_detections</span><span class="o">=</span><span class="nf">sum</span><span class="p">(</span><span class="n">num_detections</span><span class="p">),</span><span class="w">
+    </span><span class="n">total_time</span><span class="o">=</span><span class="nf">sum</span><span class="p">(</span><span class="n">res_time_sec</span><span class="p">)</span><span class="w">
+  </span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>GLATOS can also get the residency index of the animals. Each station/location will be given a percentage of time an animal has been at that location.
+Ideally, the sum of all REI for an animal should be 100% but it can be higher depending on the time interval used, and the size of the locations.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rei</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">residence_index</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="w">
+</span><span class="n">rei</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">residence_index</span><span class="p">(</span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">calculation_method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'time_interval'</span><span class="p">,</span><span class="w"> </span><span class="n">time_interval_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1 hour'</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And here’s a fun plot if we have time.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+
+</span><span class="n">p</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">event_summary</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">location</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total_detections</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">animal_id</span><span class="p">),</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+  </span><span class="n">theme</span><span class="p">(</span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">element_text</span><span class="p">(</span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-45</span><span class="p">))</span><span class="w">
+</span><span class="n">p</span><span class="w">
+</span></code></pre></div></div>
+
+:ET
