@@ -6,7 +6,8 @@ title: Setup
 
 ### R version: 3.6.x or newer and RStudio
 
-Open RStudio and run this install script. It's best to run it line by line instead of all at once in case there are errors. 
+Open RStudio and run this install script. It's best to run it line by line instead of all at once in case there are errors.
+
 <b>Note:</b> When running through the installs, you may encounter a prompt asking you to upgrade dependent packages. Choosing Option `3: None`, works in most situations and will prevent upgrades of packages you weren't explicitly looking to upgrade.
 ```r
 
@@ -17,12 +18,7 @@ install.packages("devtools")
 install.packages('tidyverse')
 
 # Mapping spatial data
-install.packages('raster')
-install.packages('mapdata')
-install.packages('maptools')
-install.packages('maps')
-install.packages('ggplot2')
-install.packages('ggmap')
+install.packages('plotly')
 
 # VTrack - Tools for Telemetry Analysis
 devtools::install_github("rossdwyer/VTrack")
@@ -34,18 +30,8 @@ install_url("https://gitlab.oceantrack.org/GreatLakes/glatos/repository/master/a
             build_opts = c("--no-resave-data", "--no-manual"))  
 ```
 
-This step is for the Instructors only.
+Once the packages are installed, create a new directory and set your working directory using `setwd('<path-to-folder>')`
 
-```r
-# Instructors only
-# Setup for Vtrack crosswalk
-
-library(remotes)
-install_url("https://ocean-tracking-network.github.io/ideasotn-glatos-intro/glatos_0.4.0.1.tar.gz",
-            build_opts = c("--no-resave-data", "--no-manual"))  
-
-```
-
-Once the packages are installed, change your working directory in RStudio to `acoustic-workshop` using the files menu, or the `setwd('~/Desktop/acoustic-workshop')`
+If you don't want to live code along, we have provided R Markdown files for each lesson which can be downloaded [here](rmarkdown.zip), but we *highly* recommend coding along with the rest of the workshop.
 
 
