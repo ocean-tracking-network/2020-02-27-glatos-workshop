@@ -8,6 +8,10 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 {% include links.md %}
 
 Here are some extra resources:
+- [Workshop Agenda](/files/glatos_pkg_workshop_agenda_20200226.docx)
+- [Setup Instructions](/files/glatos_r_package_preworkshop_instuctions.pdf)
+- [Glatos Vignettes](/files/vignettes.zip)
 
-- [Glatos Vignettes](/vignettes.zip)
+Lessons:
 - [Animation Powerpoint](/ppts/GLATOSpkg_animations_hondorp.pptx)
+- [RMarkdown Lessons for RI/REI/VTrack](/files/rmarkdown.zip)
