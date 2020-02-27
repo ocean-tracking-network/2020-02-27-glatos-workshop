@@ -13,5 +13,6 @@ Here are some extra resources:
 - [Glatos Vignettes](/files/vignettes.zip)
 
 Lessons:
+- [Intro to Glatos Powerpoint](/files/IntroToGlatosPackage-LoadFilterSummarizeVisualize.pptx)
 - [Animation Powerpoint](/ppts/GLATOSpkg_animations_hondorp.pptx)
 - [RMarkdown Lessons for RI/REI/VTrack](/files/rmarkdown.zip)
